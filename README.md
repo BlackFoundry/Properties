@@ -1,7 +1,7 @@
 Properties
 ==========
 
-Extension for RoboFont
+Extension for RoboFont<br>
 <img src="https://github.com/sansplomb/Properties/blob/master/Properties.png?raw=true" />
 
 <b>- Properties:</b>  Extension that shows in the upper right part of the Glyph window:
