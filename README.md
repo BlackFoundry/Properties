@@ -2,8 +2,7 @@ Properties
 ==========
 
 Extension for RoboFont
-<img src="https://github.com/sansplomb/Properties/blob/master/Properties.png" />
-<img src="https://github.com/FontBureau/fbOpenTools/raw/master/PeanutGallery/PeanutGallery_preview.png" />
+<img src="https://github.com/sansplomb/Properties/blob/master/Properties.png?raw=true" />
 
 <b>- Properties:</b>  Extension that shows in the upper right part of the Glyph window:
 - selected bcp distances (x, y) 
