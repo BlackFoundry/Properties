@@ -22,9 +22,7 @@
 	<real>1393944570.007383</real>
 	<key>repository</key>
 	<string>sansplomb/Properties</string>
-	<key>extensionPath</key>
-	<string>Properties.roboFontExt</string>
 	<key>version</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 </dict>
 </plist>
