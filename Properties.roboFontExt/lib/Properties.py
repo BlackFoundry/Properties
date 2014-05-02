@@ -7,7 +7,7 @@ from mojo.events import addObserver, removeObserver
 class ShowPropertiesTextBox(TextBox):
 	def __init__(self, *args, **kwargs):
 		super(ShowPropertiesTextBox, self).__init__(*args, **kwargs)
-		addObserver(self, "draw", "draw")
+		addObserver(self, "draw", "mouseUp")
 		
 	def getDist(self, a_list):
 		if a_list:
@@ -15,40 +15,36 @@ class ShowPropertiesTextBox(TextBox):
 		else:
 			return 0
 	
-	def getOffSelection(self):
-		for contour in CurrentGlyph():
-			for s in range(len(contour)):
-				for point in contour[s]:
-					if point.selected and point.type == 'offCurve':
-						return (contour, s, point)
-		return None
-	
-	def getOnsSelected(self):
-		contourList = []
-		onPointList = []
-		offPointList = []
+	def getSelected(self):
+		nbContours = 0
+		nbON = 0
+		nbOFF = 0
 		list_x = []
 		list_y = []
+		offSelection = None
 		for contour in CurrentGlyph():
-			contourList.append(contour)
+			nbContours += 1
+			segIdx = -1
 			for segment in contour:
+				segIdx += 1
 				for point in segment:
 					if point.type != 'offCurve':
-						onPointList.append(point)
+						nbON += 1
 					elif point.type == 'offCurve':
-						offPointList.append(point)
+						nbOFF += 1
+						if point.selected:
+							offSelection = (contour, segIdx, point)
 					if point.selected:
 						list_x.append(point.x)
 						list_y.append(point.y)
 		
-		return (list_x, list_y, contourList, onPointList, offPointList)
+		return (self.getDist(list_x), self.getDist(list_y), nbContours, nbON, nbOFF, offSelection)
 	
-	def bcpDistance(self):
-		sel = self.getOffSelection()
-		if sel == None:
+	def bcpDistance(self, offSelection):
+		if offSelection == None:
 			return (0, 0)
 
-		con, segIdx, pt = sel
+		con, segIdx, pt = offSelection
 		seg = con[segIdx]
 		onPt = pt
 
@@ -60,19 +56,12 @@ class ShowPropertiesTextBox(TextBox):
 		dy = pt.y - onPt.y
 		return (dx, dy)
 		
-	def onSelectedDistance(self):
-		(list_x, list_y, contourList, onPointList, offPointList) = self.getOnsSelected()
-		dist_x = self.getDist(list_x)
-		dist_y = self.getDist(list_y)
-		return (dist_x, dist_y, len(contourList), len(onPointList), len(offPointList))
-	
-	
 	def draw(self, info):
 		CurrentGlyph().update()
-		(bcpDist_x, bcpDist_y) = self.bcpDistance()
-		(dist_x, dist_y, contours, onPoints, offPoints) = self.onSelectedDistance()
+		(dist_x, dist_y, nbContours, nbON, nbOFF, offSelection) = self.getSelected()
+		(bcpDist_x, bcpDist_y) = self.bcpDistance(offSelection)
 				
-		text = u"⥓ %s ⥔ %s | ↔︎ %s ↕︎ %s | ◦ %s ⋅ %s ⟜ %s" % (bcpDist_x, bcpDist_y, dist_x, dist_y, contours, onPoints, offPoints)
+		text = u"⥓ %s ⥔ %s | ↔︎ %s ↕︎ %s | ◦ %s ⋅ %s ⟜ %s" % (bcpDist_x, bcpDist_y, dist_x, dist_y, nbContours, nbON, nbOFF)
 		self.set(text)
 		
 		def windowCloseCallback(self, sender):
