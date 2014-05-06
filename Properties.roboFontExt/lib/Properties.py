@@ -8,6 +8,7 @@ class ShowPropertiesTextBox(TextBox):
 	def __init__(self, *args, **kwargs):
 		super(ShowPropertiesTextBox, self).__init__(*args, **kwargs)
 		addObserver(self, "draw", "mouseUp")
+		addObserver(self, "draw", "keyUp")
 		
 	def getDist(self, a_list):
 		if a_list:
