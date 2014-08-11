@@ -9,6 +9,7 @@ class ShowPropertiesTextBox(TextBox):
 		super(ShowPropertiesTextBox, self).__init__(*args, **kwargs)
 		addObserver(self, "draw", "mouseUp")
 		addObserver(self, "draw", "keyUp")
+		self.cachedPoints = {}
 		
 	def getDist(self, a_list):
 		if a_list:
@@ -17,6 +18,8 @@ class ShowPropertiesTextBox(TextBox):
 			return 0
 	
 	def getSelected(self):
+		if CurrentGlyph() == None:
+			return
 		nbContours = 0
 		nbON = 0
 		nbOFF = 0
@@ -56,7 +59,7 @@ class ShowPropertiesTextBox(TextBox):
 		dx = pt.x - onPt.x
 		dy = pt.y - onPt.y
 		return (dx, dy)
-		
+
 	def draw(self, info):
 		CurrentGlyph().update()
 		(dist_x, dist_y, nbContours, nbON, nbOFF, offSelection) = self.getSelected()
@@ -76,7 +79,7 @@ class ShowProperties(BaseWindowController):
 	
 	def glyphWindowDidOpen(self, info):
 		window = info["window"]
-		vanillaView = ShowPropertiesTextBox((20, 22, -20, 22), "", alignment="right", sizeStyle="mini")
+		vanillaView = ShowPropertiesTextBox((-200, 22, -20, 22), "", alignment="right", sizeStyle="mini")
 		superview = window.editGlyphView.enclosingScrollView().superview()
 		view = vanillaView.getNSTextField()
 		frame = superview.frame()
