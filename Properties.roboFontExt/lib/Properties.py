@@ -61,7 +61,8 @@ class ShowPropertiesTextBox(TextBox):
 		return (dx, dy)
 
 	def draw(self, info):
-		CurrentGlyph().update()
+		if CurrentGlyph() == None:
+			return
 		(dist_x, dist_y, nbContours, nbON, nbOFF, offSelection) = self.getSelected()
 		(bcpDist_x, bcpDist_y) = self.bcpDistance(offSelection)
 				
