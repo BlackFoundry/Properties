@@ -69,12 +69,8 @@ class ShowPropertiesTextBox(TextBox):
 		text = u"⥓ %s ⥔ %s | ↔︎ %s ↕︎ %s | ◦ %s ⋅ %s ⟜ %s" % (bcpDist_x, bcpDist_y, dist_x, dist_y, nbContours, nbON, nbOFF)
 		self.set(text)
 		
-		def windowCloseCallback(self, sender):
-			super(ShowPropertiesTextBox, self).windowCloseCallback(sender)
-			removeObserver(self, "draw")
 		
-		
-class ShowProperties(BaseWindowController):
+class ShowProperties():
 	def __init__(self):
 		addObserver(self, "glyphWindowDidOpen", "glyphWindowDidOpen")
 	
@@ -86,9 +82,6 @@ class ShowProperties(BaseWindowController):
 		frame = superview.frame()
 		vanillaView._setFrame(frame)
 		superview.addSubview_(view)
-		
-	def windowCloseCallback(self, sender):
-		super(ShowPropertiesTextBox, self).windowCloseCallback(sender)
-		removeObserver(self, "glyphWindowDidOpen")
+
 
 ShowProperties()
