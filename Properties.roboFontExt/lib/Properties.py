@@ -1,13 +1,14 @@
 #coding=utf-8
+from __future__ import print_function
 
 from vanilla import *
 from defconAppKit.windows.baseWindow import BaseWindowController
 from mojo.events import addObserver, removeObserver
 from mojo.extensions import getExtensionDefault, setExtensionDefault
-from robofab.world import *
+from fontParts.world import *
 from lib.eventTools.eventManager import allObservers
 
-defaultKeyStub = "com.sansplomb.Properties."
+defaultKeyStub = "com.blackfoundry.Properties."
 defaultKeyObserverVisibility = defaultKeyStub + "display"
 
 def toggleObserverVisibility():
@@ -54,9 +55,9 @@ class ShowPropertiesTextBox(TextBox):
 			for segment in contour:
 				segIdx += 1
 				for point in segment:
-					if point.type != 'offCurve':
+					if point.type not in ['offCurve', 'offcurve']:
 						nbON += 1
-					elif point.type == 'offCurve':
+					elif point.type in ['offCurve', 'offcurve']:
 						nbOFF += 1
 						if point.selected:
 							offSelection = (contour, segIdx, point)
@@ -107,7 +108,6 @@ class ShowPropertiesTextBox(TextBox):
 class ShowProperties():
 	def __init__(self):
 		addObserver(self, "glyphWindowDidOpen", "glyphWindowDidOpen")
-
 
 	def glyphWindowDidOpen(self, info):
 		window = info["window"]

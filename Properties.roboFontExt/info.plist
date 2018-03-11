@@ -8,7 +8,7 @@
 			<key>path</key>
 			<string>ToggleProperties.py</string>
 			<key>preferredName</key>
-			<string>Show/Hide Properties</string>
+			<string>Properties Toggle</string>
 			<key>shortKey</key>
 			<string></string>
 		</dict>
@@ -32,6 +32,6 @@
 	<key>repository</key>
 	<string>sansplomb/Properties</string>
 	<key>version</key>
-	<string>1.1.5</string>
+	<string>1.2</string>
 </dict>
 </plist>

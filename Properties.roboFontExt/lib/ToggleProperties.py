@@ -1,4 +1,5 @@
+from importlib import reload
 import Properties
-reload (Properties)
+reload(Properties)
 
 Properties.toggleObserverVisibility()
