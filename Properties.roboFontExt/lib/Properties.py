@@ -5,7 +5,11 @@ from vanilla import *
 from defconAppKit.windows.baseWindow import BaseWindowController
 from mojo.events import addObserver, removeObserver
 from mojo.extensions import getExtensionDefault, setExtensionDefault
-from fontParts.world import *
+try:
+	from fontParts.world import *
+except:
+	from robofab.world import *
+
 from lib.eventTools.eventManager import allObservers
 
 defaultKeyStub = "com.blackfoundry.Properties."

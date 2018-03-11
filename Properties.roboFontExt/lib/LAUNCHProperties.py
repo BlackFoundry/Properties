@@ -1,6 +1,9 @@
-from importlib import reload
-import Properties
+try:
+	from importlib import reload
+except:
+	pass
 
+import Properties
 reload(Properties)
 
 Properties.ShowProperties()

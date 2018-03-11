@@ -1,4 +1,8 @@
-from importlib import reload
+try:
+	from importlib import reload
+except:
+	pass
+	
 import Properties
 reload(Properties)
 
