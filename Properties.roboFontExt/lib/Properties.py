@@ -34,7 +34,7 @@ class ShowPropertiesTextBox(TextBox):
 				break
 		else:
 			addObserver(self, "draw", "keyUp")
-#		addObserver(self, "glyphWindowWillClose", "glyphWindowWillClose")
+		addObserver(self, "glyphWindowWillClose", "glyphWindowWillClose")
 		self.cachedPoints = {}
 		self.viewID = viewID
 
